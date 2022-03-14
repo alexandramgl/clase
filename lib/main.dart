@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'pages/pruebaStack.dart';
 import 'pages/actividad.dart';
 import 'pages/formScreen.dart';
+import 'pages/cardScreen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -13,7 +14,8 @@ void main() {
         '/': (context) => const HomePage(),
         '/stack': (context) => const PruebaStack(),
         '/actividad': (context) => const Actividad(),
-        '/actividad1': (context) => MyStateFulWidget()
+        '/actividad1': (context) => MyStateFulWidget(),
+        '/cardscreen': (context) => const CardScreen()
       }));
 }
 
@@ -100,7 +102,18 @@ class HomePage extends StatelessWidget {
                       MaterialStateProperty.all(TextStyle(fontSize: 15))),
               child: const Text('Formulario'),
               onPressed: () => Navigator.pushNamed(context, '/actividad1'),
-            )
+            ),
+            ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Colors.indigo[200]),
+                  padding: MaterialStateProperty.all(
+                      EdgeInsets.symmetric(horizontal: 25, vertical: 15)),
+                  textStyle:
+                      MaterialStateProperty.all(TextStyle(fontSize: 15))),
+              child: const Text('Tarjeta'),
+              onPressed: () => Navigator.pushNamed(context, '/cardscreen'),
+            ),
           ],
         ),
       ),

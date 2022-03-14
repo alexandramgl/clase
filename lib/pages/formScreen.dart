@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class MyStateFulWidget extends StatefulWidget {
   MyStateFulWidget({Key? key}) : super(key: key);
@@ -13,6 +14,8 @@ class MyStateFulWidget extends StatefulWidget {
 class _MyStateFulWidgetState extends State<MyStateFulWidget> {
   late TextEditingController _controller; //definir el tipo de variable con late
   bool _isChecked = false;
+  var maskFormatter = new MaskTextInputFormatter(
+      mask: '####-####-####-####', filter: {"#": RegExp(r'[0-9]')});
 
   @override
   void initState() {
@@ -59,7 +62,7 @@ class _MyStateFulWidgetState extends State<MyStateFulWidget> {
   }
 }*/
 
-  @override
+  /* @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -110,6 +113,81 @@ class _MyStateFulWidgetState extends State<MyStateFulWidget> {
           ),
         ),
       ),
+    );
+  }*/
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Form(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            inputEmail(_controller),
+            SizedBox(height: 10),
+            inputPassword(_controller),
+            SizedBox(height: 10),
+            inputCard(_controller),
+            SizedBox(height: 10),
+          ],
+        )),
+      ),
+    );
+  }
+
+  Widget inputEmail(_controller) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.grey, width: 20.0)),
+      child: TextFormField(
+        keyboardType: TextInputType.emailAddress,
+        autofocus: true,
+        controller: _controller,
+        decoration: const InputDecoration(
+            border: InputBorder.none,
+            prefixIcon: Icon(Icons.contact_mail),
+            labelText: 'Correo',
+            hintText: 'micorreo@correo.com'),
+      ),
+    );
+  }
+
+  Widget inputPassword(_controller) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.grey, width: 20.0)),
+      child: TextFormField(
+        obscureText: true,
+        decoration: const InputDecoration(
+            border: InputBorder.none,
+            prefixIcon: Icon(Icons.contact_mail),
+            labelText: 'Contraseña',
+            hintText: '********'),
+      ),
+    );
+  }
+
+  Widget inputCard(_controller) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.grey, width: 20.0)),
+      child: TextFormField(
+          keyboardType: TextInputType.number,
+          inputFormatters: [maskFormatter],
+          decoration: InputDecoration(
+              prefixIcon: Icon(Icons.credit_card),
+              labelText: 'Tarjeta',
+              hintText: '1234-1234-1234-1234')),
     );
   }
 }
